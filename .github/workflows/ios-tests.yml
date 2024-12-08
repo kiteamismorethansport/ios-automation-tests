@@ -11,50 +11,36 @@ jobs:
     runs-on: macos-latest
 
     steps:
-    # Step 1: Checkout the repository
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    # Step 2: Set up Node.js
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: 18 
+        node-version: 18
 
-    # Step 3: Install dependencies
-    - name: Install project dependencies
+    - name: Install Dependencies
       run: npm install
 
-    # Step 4: Fix WebdriverIO Permissions
+    - name: Install WebdriverIO Dependencies
+      run: npm install @wdio/cli @wdio/local-runner @wdio/mocha-framework @wdio/appium-service appium
+
     - name: Fix WebdriverIO Permissions
       run: chmod +x ./node_modules/.bin/wdio
 
-    # Step 5: Install Appium and required drivers
     - name: Install Appium and XCUITest Driver
       run: |
-        npm install -g appium
         npx appium driver install xcuitest
 
-    # Step 6: Start the iOS Simulator
     - name: Start iOS Simulator
       run: |
         xcrun simctl boot "iPhone 15"
         xcrun simctl bootstatus "iPhone 15"
 
-    # Step 7: Start Appium Server
     - name: Start Appium Server
       run: |
         npx appium --address 127.0.0.1 --port 4723 &
         sleep 5
 
-    # Step 8: Run WebdriverIO Tests
     - name: Run WebdriverIO Tests
       run: npx wdio run wdio.conf.js
-
-    # Step 9: Upload Test Results (Optional)
-    - name: Upload Test Results
-      if: always()
-      uses: actions/upload-artifact@v3
-      with:
-        name: test-results
-        path: ./reports
