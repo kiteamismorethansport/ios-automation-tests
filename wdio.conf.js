@@ -19,10 +19,15 @@ export const config = {
     specs: ['./test/specs/**/*.js'],
 
     // Services
-    services: ['appium'],
-
+    services: [
+        ['appium', {
+            args: {
+                log: './appium.log', // Save Appium logs to this file
+            },
+        }],
+    ],
     // Mocha Options
     mochaOpts: {
-        timeout: 120000,
+        timeout: 60000,
     },
 };
