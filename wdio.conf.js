@@ -3,12 +3,12 @@ export const config = {
     capabilities: [
         {
             platformName: 'iOS',
-            platformVersion: '16.0',
-            deviceName: 'iPhone 14',
-            automationName: 'XCUITest',
-            app: './apps/YourApp.app',
-            noReset: true,
-            fullReset: false,
+            'appium:platformVersion': '16.0', // Add appium prefix
+            'appium:deviceName': 'iPhone 14', // Add appium prefix
+            'appium:automationName': 'XCUITest', // Add appium prefix
+            'appium:app': './apps/YourApp.app', // Add appium prefix
+            'appium:noReset': true, // Add appium prefix
+            'appium:fullReset': false, // Add appium prefix
         },
     ],
 
