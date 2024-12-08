@@ -16,7 +16,7 @@ export const config = {
     framework: 'mocha',
 
     // Test Files
-    specs: ['./tests/specs/**/*.js'],
+    specs: ['./test/specs/**/*.js'],
 
     // Services
     services: ['appium'],

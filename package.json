@@ -3,5 +3,8 @@
   "type": "module",
   "devDependencies": {
     "@wdio/cli": "^9.4.1"
+  },
+  "dependencies": {
+    "@wdio/local-runner": "^9.4.1"
   }
 }
