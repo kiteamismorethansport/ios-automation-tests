@@ -1,0 +1,56 @@
+name: iOS Emulator Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  ios-tests:
+    runs-on: macos-latest
+
+    steps:
+    # Step 1: Checkout the repository
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    # Step 2: Set up Node.js
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+
+    # Step 3: Install dependencies
+    - name: Install project dependencies
+      run: npm install
+
+    # Step 4: Install Appium and required drivers
+    - name: Install Appium and XCUITest Driver
+      run: |
+        npm install -g appium
+        npx appium driver install xcuitest
+
+    # Step 5: Start the iOS Simulator
+    - name: Start iOS Simulator
+      run: |
+        xcrun simctl boot "iPhone 15" # Boot the iPhone 15 simulator
+        xcrun simctl bootstatus "iPhone 15" # Wait until the simulator is fully booted
+
+    # Step 6: Start Appium Server
+    - name: Start Appium Server
+      run: |
+        npx appium --address 127.0.0.1 --port 4723 &
+        sleep 5
+
+    # Step 7: Run WebdriverIO Tests
+    - name: Run WebdriverIO Tests
+      run: npx wdio run wdio.conf.js
+
+    # Step 8: Upload Test Results (Optional)
+    - name: Upload Test Results
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-results
+        path: ./reports
