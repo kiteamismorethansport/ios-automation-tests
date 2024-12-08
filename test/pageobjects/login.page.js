@@ -8,14 +8,14 @@ class LoginPage {
     /**
      * define selectors using getter methods
      */
-    get biometricAuthentication() {
-        return $('~Biometric authentication'); // '~' indicates Accessibility ID
+    get appButton() {
+        return $('~longpress reset app'); // '~' indicates Accessibility ID
     }
 
     
     async click () {
-        await expect(this.biometricAuthentication).toBeDisplayed();
-        await this.biometricAuthentication.click();
+        await expect(this.appButton).toBeDisplayed();
+        await this.appButton.click();
     }
 
 }
