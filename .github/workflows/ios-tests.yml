@@ -25,29 +25,33 @@ jobs:
     - name: Install project dependencies
       run: npm install
 
-    # Step 4: Install Appium and required drivers
+    # Step 4: Fix WebdriverIO Permissions
+    - name: Fix WebdriverIO Permissions
+      run: chmod +x ./node_modules/.bin/wdio
+
+    # Step 5: Install Appium and required drivers
     - name: Install Appium and XCUITest Driver
       run: |
         npm install -g appium
         npx appium driver install xcuitest
 
-    # Step 5: Start the iOS Simulator
+    # Step 6: Start the iOS Simulator
     - name: Start iOS Simulator
       run: |
-        xcrun simctl boot "iPhone 15" # Boot the iPhone 15 simulator
-        xcrun simctl bootstatus "iPhone 15" # Wait until the simulator is fully booted
+        xcrun simctl boot "iPhone 15"
+        xcrun simctl bootstatus "iPhone 15"
 
-    # Step 6: Start Appium Server
+    # Step 7: Start Appium Server
     - name: Start Appium Server
       run: |
         npx appium --address 127.0.0.1 --port 4723 &
         sleep 5
 
-    # Step 7: Run WebdriverIO Tests
+    # Step 8: Run WebdriverIO Tests
     - name: Run WebdriverIO Tests
       run: npx wdio run wdio.conf.js
 
-    # Step 8: Upload Test Results (Optional)
+    # Step 9: Upload Test Results (Optional)
     - name: Upload Test Results
       if: always()
       uses: actions/upload-artifact@v3
