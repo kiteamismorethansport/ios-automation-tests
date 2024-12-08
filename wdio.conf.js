@@ -3,7 +3,7 @@ export const config = {
     capabilities: [
         {
             platformName: 'iOS',
-            'appium:platformVersion': '16.0', // Add appium prefix
+            'appium:platformVersion': '17.5', // Add appium prefix
             'appium:deviceName': 'iPhone 14', // Add appium prefix
             'appium:automationName': 'XCUITest', // Add appium prefix
             'appium:app': './apps/YourApp.app', // Add appium prefix
