@@ -2,6 +2,7 @@
   "name": "my-new-project",
   "type": "module",
   "devDependencies": {
+    "@wdio/appium-service": "^9.4.1",
     "@wdio/cli": "^9.4.1"
   },
   "dependencies": {
