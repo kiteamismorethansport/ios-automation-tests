@@ -39,8 +39,8 @@ jobs:
 
     - name: Start Appium Server
       run: |
-        npx appium --address 127.0.0.1 --port 4723 &
-        sleep 5
+        npx appium --address 127.0.0.1 --port 4723 --base-path / --log ./appium.log &
+        sleep 15
 
     - name: Run WebdriverIO Tests
       run: npx wdio run wdio.conf.js
