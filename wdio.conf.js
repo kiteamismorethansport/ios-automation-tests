@@ -8,7 +8,7 @@ export const config = {
             'appium:automationName': 'XCUITest', // Add appium prefix
             'appium:app': './apps/MyRNDemoApp.app', // Add appium prefix
             'appium:noReset': true, // Add appium prefix
-            'appium:fullReset': false, // Add appium prefix
+            'appium:fullReset': false, // Add appium prefix!
         },
     ],
 
