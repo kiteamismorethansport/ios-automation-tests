@@ -22,20 +22,31 @@ jobs:
     - name: Install Dependencies
       run: npm install
 
-    - name: Install WebdriverIO Dependencies
-      run: npm install @wdio/cli @wdio/local-runner @wdio/mocha-framework @wdio/appium-service appium
+    - name: Install WebdriverIO and Appium Dependencies
+      run: |
+        npm install @wdio/cli @wdio/local-runner @wdio/mocha-framework @wdio/appium-service
+        npm install appium
 
     - name: Fix WebdriverIO Permissions
       run: chmod +x ./node_modules/.bin/wdio
 
-    - name: Install Appium and XCUITest Driver
-      run: |
-        npx appium driver install xcuitest
+    - name: Install Appium Drivers
+      run: npx appium driver install xcuitest
 
-    - name: Start iOS Simulator
+    - name: List Available Simulators
+      run: xcrun simctl list
+
+    - name: Boot iOS Simulator
       run: |
+        xcrun simctl shutdown all || true
         xcrun simctl boot "iPhone 15"
         xcrun simctl bootstatus "iPhone 15"
+
+    - name: Verify Xcode Setup
+      run: |
+        sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
+        xcodebuild -version
+        xcrun --sdk iphonesimulator --show-sdk-version
 
     - name: Start Appium Server
       run: |
@@ -43,4 +54,10 @@ jobs:
         sleep 15
 
     - name: Run WebdriverIO Tests
-      run: npx wdio run wdio.conf.js
+      run: npx wdio run wdio.conf.js --logLevel debug
+
+    - name: Collect Logs on Failure
+      if: failure()
+      run: |
+        echo "Appium Logs:"
+        cat ./appium.log
