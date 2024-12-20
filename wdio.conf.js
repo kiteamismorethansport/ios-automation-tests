@@ -22,7 +22,7 @@ export const config = {
     services: [
         ['appium', {
             args: {
-                log: './appium.log', // Save Appium logs to this file
+                log: './appium.log', // Save Appium logs to this file.....
             },
         }],
     ],
