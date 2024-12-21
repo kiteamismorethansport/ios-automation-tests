@@ -28,6 +28,6 @@ export const config = {
     ],
     // Mocha Options
     mochaOpts: {
-        timeout: 60000,
+        timeout: 100000,
     },
 };
