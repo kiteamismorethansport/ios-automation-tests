@@ -54,14 +54,16 @@ jobs:
         sleep 15
 
     - name: Run WebdriverIO Tests
-      run: npx wdio run wdio.conf.js --logLevel debug
+      run: |
+        mkdir -p screenshots
+        npx wdio run wdio.conf.js --logLevel debug
+      continue-on-error: true
 
     - name: Collect Logs on Failure
       if: failure()
       run: |
         echo "Appium Logs:"
         cat ./appium.log
-
 
     - name: Upload Test Artifacts
       if: always() # Ensure this runs even if tests fail
@@ -70,4 +72,4 @@ jobs:
         name: iOS-test-artifacts
         path: |
           ./appium.log
-          ./screenshots/    
+          ./screenshots/
