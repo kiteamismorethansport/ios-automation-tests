@@ -61,3 +61,13 @@ jobs:
       run: |
         echo "Appium Logs:"
         cat ./appium.log
+
+
+    - name: Upload Test Artifacts
+      if: always() # Ensure this runs even if tests fail
+      uses: actions/upload-artifact@v3
+      with:
+        name: iOS-test-artifacts
+        path: |
+          ./appium.log
+          ./screenshots/    
