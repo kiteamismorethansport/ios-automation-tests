@@ -57,12 +57,12 @@ jobs:
       run: npx wdio run wdio.conf.js --logLevel debug
 
     - name: Archive Screenshots and Logs
-  if: always() # Ensure this step runs
-  run: |
-    mkdir -p artifacts
-    [ -d ./screenshots ] && cp -r ./screenshots ./artifacts || echo "No screenshots directory found."
-    [ -f ./appium.log ] && cp ./appium.log ./artifacts || echo "No Appium logs found."
-    zip -r artifacts.zip ./artifacts
+      if: always() # Ensure this step runs
+      run: |
+       mkdir -p artifacts
+       [ -d ./screenshots ] && cp -r ./screenshots ./artifacts || echo "No screenshots directory found."
+       [ -f ./appium.log ] && cp ./appium.log ./artifacts || echo "No Appium logs found."
+       zip -r artifacts.zip ./artifacts
 
 
     - name: Upload Artifacts
