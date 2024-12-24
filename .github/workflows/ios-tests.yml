@@ -1,11 +1,3 @@
-name: iOS Emulator Tests
-
-on:
-  push:
-    branches:
-      - master
-  pull_request:
-
 jobs:
   ios-tests:
     runs-on: macos-latest
@@ -48,22 +40,19 @@ jobs:
         xcodebuild -version
         xcrun --sdk iphonesimulator --show-sdk-version
 
-    - name: Start Appium Server
-      run: |
-        npx appium --address 127.0.0.1 --port 4723 --base-path / --log ./appium.log &
-        sleep 15
+    # Removed the "Start Appium Server" step entirely
+    # Let the WDIO/Appium service spawn the server automatically.
 
     - name: Run WebdriverIO Tests
       run: npx wdio run wdio.conf.js --logLevel debug
 
     - name: Archive Screenshots and Logs
-      if: always() # Ensure this step runs
+      if: always()
       run: |
-       mkdir -p artifacts
-       [ -d ./screenshots ] && cp -r ./screenshots ./artifacts || echo "No screenshots directory found."
-       [ -f ./appium.log ] && cp ./appium.log ./artifacts || echo "No Appium logs found."
-       zip -r artifacts.zip ./artifacts
-
+        mkdir -p artifacts
+        [ -d ./screenshots ] && cp -r ./screenshots ./artifacts || echo "No screenshots directory found."
+        [ -f ./appium.log ] && cp ./appium.log ./artifacts || echo "No Appium logs found."
+        zip -r artifacts.zip ./artifacts
 
     - name: Upload Artifacts
       if: always()
