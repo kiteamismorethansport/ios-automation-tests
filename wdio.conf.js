@@ -1,33 +1,41 @@
 export const config = {
+    // ====================
+    // Runner Configuration
+    // ====================
+    runner: 'local',
+
+    // =============
     // Capabilities
-    capabilities: [
-        {
-            platformName: 'iOS',
-            'appium:platformVersion': '17.0', // Add appium prefix
-            'appium:deviceName': 'iPhone 15', // Add appium prefix
-            'appium:automationName': 'XCUITest', // Add appium prefix
-            'appium:app': './apps/MyRNDemoApp.app', // Add appium prefix
-            'appium:noReset': true, // Add appium prefix
-            'appium:fullReset': false, // Add appium prefix!
-        },
-    ],
+    // =============
+    capabilities: [{
+        platformName: 'iOS',
+        'appium:platformVersion': '17.0',
+        'appium:deviceName': 'iPhone 15',
+        'appium:automationName': 'XCUITest',
+        'appium:app': './apps/MyRNDemoApp.app',
+        'appium:noReset': true,
+        'appium:fullReset': false,
+    }],
 
-    // Framework
+    // ===================
+    // Test Configurations
+    // ===================
+    logLevel: 'debug',
     framework: 'mocha',
-
-    // Test Files
-    specs: ['./test/specs/**/*.js'],
-
-    // Services
-    services: [
-        ['appium', {
-            args: {
-                log: './appium.log', // Save Appium logs to this file.....
-            },
-        }],
-    ],
-    // Mocha Options
     mochaOpts: {
         timeout: 100000,
     },
+
+    // =============
+    // Appium Service
+    // =============
+    services: [
+        ['appium', {
+            // You can specify 'command: "appium"' if needed
+            args: {
+                // optional args; let Appium pick a port
+                log: './appium.log',
+            },
+        }],
+    ],
 };
