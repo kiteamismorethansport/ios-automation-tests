@@ -1,12 +1,17 @@
 export const config = {
-    // ====================
+    //
+    // Where to find your test files
+    //
+    specs: ['./test/specs/**/*.js'],
+
+    //
     // Runner Configuration
-    // ====================
+    //
     runner: 'local',
 
-    // =============
+    //
     // Capabilities
-    // =============
+    //
     capabilities: [{
         platformName: 'iOS',
         'appium:platformVersion': '17.0',
@@ -17,23 +22,21 @@ export const config = {
         'appium:fullReset': false,
     }],
 
-    // ===================
+    //
     // Test Configurations
-    // ===================
+    //
     logLevel: 'debug',
     framework: 'mocha',
     mochaOpts: {
         timeout: 100000,
     },
 
-    // =============
-    // Appium Service
-    // =============
+    //
+    // Use built-in Appium service (spawns Appium automatically)
+    //
     services: [
         ['appium', {
-            // You can specify 'command: "appium"' if needed
             args: {
-                // optional args; let Appium pick a port
                 log: './appium.log',
             },
         }],
