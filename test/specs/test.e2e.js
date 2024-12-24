@@ -10,13 +10,12 @@ describe('My Login application', () => {
         }
 
         console.log('Saving screenshot before click');
-        await browser.saveScreenshot(`${screenshotsDir}/before-click.png`);
+        await browser.saveScreenshot(${screenshotsDir}/before-click.png);
 
         console.log('Performing click action');
         await LoginPage.click();
 
         console.log('Saving screenshot after click');
-        await browser.saveScreenshot(`${screenshotsDir}/after-click.png`);
+        await browser.saveScreenshot(${screenshotsDir}/after-click.png);
     });
 });
-
