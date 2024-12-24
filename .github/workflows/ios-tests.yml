@@ -63,10 +63,3 @@ jobs:
        [ -d ./screenshots ] && cp -r ./screenshots ./artifacts || echo "No screenshots directory found."
        [ -f ./appium.log ] && cp ./appium.log ./artifacts || echo "No Appium logs found."
        zip -r artifacts.zip ./artifacts
-
-    - name: Upload Artifacts
-      if: always()
-      uses: actions/upload-artifact@v3
-      with:
-      name: test-artifacts
-      path: artifacts.zip
