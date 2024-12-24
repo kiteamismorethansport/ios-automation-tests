@@ -40,8 +40,8 @@ jobs:
         xcrun simctl boot "iPhone 15"
         xcrun simctl bootstatus "iPhone 15"
 
-    # IMPORTANT: No manual "Start Appium Server" step here
-    # We rely on WDIO's built-in service
+        # IMPORTANT: No manual "Start Appium Server" step here
+        # We rely on WDIO's built-in service
 
     - name: Run WebdriverIO Tests
       run: npx wdio run wdio.conf.js --logLevel debug
@@ -50,11 +50,11 @@ jobs:
       if: always()
       run: |
        mkdir -p artifacts
-      # Copy appium.log if it exists
+       # Copy appium.log if it exists
        [ -f ./appium.log ] && cp ./appium.log ./artifacts || echo "No Appium log found."
-      # Copy the screenshots folder if it exists
+       # Copy the screenshots folder if it exists
        [ -d ./screenshots ] && cp -r ./screenshots ./artifacts || echo "No screenshots directory found."
-      # Create a zip
+       # Create a zip
        zip -r artifacts.zip artifacts
 
     - name: Upload Artifacts
