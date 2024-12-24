@@ -16,7 +16,7 @@ export const config = {
         },
       ],
     ],
-    connectionRetryTimeout: 300000,
+    connectionRetryTimeout: 600000,
     connectionRetryCount: 3,
   
     capabilities: [
