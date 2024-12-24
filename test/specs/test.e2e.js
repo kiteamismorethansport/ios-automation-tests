@@ -4,14 +4,9 @@ import LoginPage from '../pageobjects/login.page.js';
 
 describe('My Login application', () => {
     it('should login with valid credentials', async () => {
-        const screenshotsDir = `${process.cwd()}/screenshots`;
+        const screenshotsDir = ${process.cwd()}/screenshots;
         if (!fs.existsSync(screenshotsDir)) {
-            try {
-                fs.mkdirSync(screenshotsDir);
-            } catch (err) {
-                console.error('Failed to create screenshots directory:', err);
-                throw err; // Fail the test if the directory cannot be created
-            } // Ensure directory exists
+            fs.mkdirSync(screenshotsDir); // Ensure directory exists
         }
 
         console.log('Saving screenshot before click');
