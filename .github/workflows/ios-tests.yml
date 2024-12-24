@@ -46,20 +46,21 @@ jobs:
     - name: Run WebdriverIO Tests
       run: npx wdio run wdio.conf.js --logLevel debug
 
-    - name: Archive Logs & Upload
-      if: always()
-      run: |
-        mkdir -p artifacts
-        [ -f ./appium.log ] && cp ./appium.log ./artifacts || echo "No Appium log"
-        zip -r artifacts.zip artifacts
-      # Then upload with actions/upload-artifact@v3
-
-
-    - name: Archive Screenshots and Logs
-      if: always()
-      run: |
+   - name: Archive Artifacts and Upload
+     if: always()
+     run: |
        mkdir -p artifacts
-       # Copy the entire screenshots folder (if it exists)
+    # Copy appium.log if it exists
+       [ -f ./appium.log ] && cp ./appium.log ./artifacts || echo "No Appium log found."
+    # Copy the screenshots folder if it exists
        [ -d ./screenshots ] && cp -r ./screenshots ./artifacts || echo "No screenshots directory found."
-       [ -f ./appium.log ] && cp ./appium.log ./artifacts || echo "No Appium logs found."
-       zip -r artifacts.zip ./artifacts
+    # Create a zip
+       zip -r artifacts.zip artifacts
+
+   - name: Upload Artifacts
+     if: always()
+     uses: actions/upload-artifact@v3
+     with:
+     name: test-artifacts
+     path: artifacts.zip
+

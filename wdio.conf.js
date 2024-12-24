@@ -11,7 +11,7 @@ export const config = {
         'appium',
         {
           args: {
-            // e.g. log: './appium.log',
+            log: './appium.log',
           },
         },
       ],
