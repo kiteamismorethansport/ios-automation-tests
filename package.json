@@ -5,6 +5,7 @@
     "@wdio/allure-reporter": "^9.4.4",
     "@wdio/appium-service": "^9.4.1",
     "@wdio/cli": "^9.4.1",
+    "@wdio/spec-reporter": "^9.4.4",
     "allure-commandline": "^2.32.0"
   },
   "dependencies": {
