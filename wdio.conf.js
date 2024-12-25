@@ -8,6 +8,12 @@ export const config = {
     logLevel: 'debug',
     services: [
       [
+        'allure',
+    {
+      outputDir: 'allure-results',
+      disableWebdriverStepsReporting: false,
+      disableWebdriverScreenshotsReporting: false
+    },
         'appium',
         {
           args: {

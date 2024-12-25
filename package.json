@@ -2,8 +2,10 @@
   "name": "my-new-project",
   "type": "module",
   "devDependencies": {
+    "@wdio/allure-reporter": "^9.4.4",
     "@wdio/appium-service": "^9.4.1",
-    "@wdio/cli": "^9.4.1"
+    "@wdio/cli": "^9.4.1",
+    "allure-commandline": "^2.32.0"
   },
   "dependencies": {
     "@wdio/local-runner": "^9.4.1"

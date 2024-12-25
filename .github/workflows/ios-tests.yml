@@ -45,6 +45,23 @@ jobs:
 
     - name: Run WebdriverIO Tests
       run: npx wdio run wdio.conf.js --logLevel debug
+    
+    
+    - name: Install Allure CLI
+      run: |
+        brew tap qatools/allure
+        brew install allure
+
+    - name: Generate Allure HTML Report
+      run: |
+        # The results folder must match "outputDir" from your wdio conf
+         allure generate allure-results --clean -o allure-report
+
+    - name: Upload Allure HTML
+      uses: actions/upload-artifact@v3
+      with:
+        name: allure-report
+        path: allure-report
 
     - name: Archive Artifacts and Upload
       if: always()

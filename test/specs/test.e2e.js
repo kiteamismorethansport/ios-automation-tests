@@ -21,7 +21,7 @@ describe('My Login application', () => {
         await LoginPage.click();
 
         console.log('Saving screenshot after click');
-        // Save a screenshot after the click action
+        // Save a screenshot after the click action.
         await browser.saveScreenshot(`${screenshotsDir}/after-click.png`);
     });
 });
