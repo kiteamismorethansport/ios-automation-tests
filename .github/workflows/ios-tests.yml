@@ -47,18 +47,13 @@ jobs:
       run: npx wdio run wdio.conf.js --logLevel debug
     
     
-    - name: Install Allure CLI (Direct Download)
+    - name: Install Allure CLI (Direct Download from Maven Central)
       run: |
        ALLURE_VERSION=2.23.0
-       curl -LO https://github.com/allure-framework/allure2/releases/download/${ALLURE_VERSION}/allure-commandline-${ALLURE_VERSION}.zip
+       curl -LO https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/${ALLURE_VERSION}/allure-commandline-${ALLURE_VERSION}.zip
     
-       # Unzip into a folder named "allure-cli"
        unzip allure-commandline-${ALLURE_VERSION}.zip -d allure-cli
-    
-       # Move it somewhere globally accessible, e.g. /usr/local/allure
        sudo mv allure-cli /usr/local/allure
-    
-       # Create a symlink for the `allure` executable so we can call it easily
        sudo ln -s /usr/local/allure/allure/bin/allure /usr/local/bin/allure
 
 
