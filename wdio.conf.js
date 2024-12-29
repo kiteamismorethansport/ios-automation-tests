@@ -38,7 +38,7 @@ export const config = {
         'appium:automationName': 'XCUITest',
         'appium:app': './apps/MyRNDemoApp.app',
   
-        // Ensure Appium doesn't reboot the sim
+        // Ensure Appium doesn't reboot the sim,
         'appium:noReset': true,
         'appium:fullReset': false,
   
