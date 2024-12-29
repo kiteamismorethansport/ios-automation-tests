@@ -47,25 +47,26 @@ jobs:
       run: npx wdio run wdio.conf.js --logLevel debug
     
     
-    - name: Install Allure CLI (Direct Download from Maven Central)
+    - name: Install Allure CLI
       run: |
-       ALLURE_VERSION=2.23.0
+       ALLURE_VERSION=2.23.1
        curl -LO https://repo.maven.apache.org/maven2/io/qameta/allure/allure-commandline/${ALLURE_VERSION}/allure-commandline-${ALLURE_VERSION}.zip
     
        unzip allure-commandline-${ALLURE_VERSION}.zip -d allure-cli
        sudo mv allure-cli /usr/local/allure
-       sudo ln -s /usr/local/allure/allure/bin/allure /usr/local/bin/allure
 
+       echo "/usr/local/allure/allure/bin" >> $GITHUB_PATH
 
     - name: Generate Allure Report
       run: |
-        allure generate allure-results --clean -o allure-report
+       allure generate allure-results --clean -o allure-report
 
-    - name: Upload Allure HTML
+    - name: Upload Allure Report
       uses: actions/upload-artifact@v3
       with:
-        name: allure-report
-        path: allure-report
+       name: allure-report
+       path: allure-report
+
 
     - name: Archive Artifacts and Upload
       if: always()
