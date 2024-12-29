@@ -9,87 +9,77 @@ jobs:
   ios-tests:
     runs-on: macos-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 18
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
 
-    - name: Install Dependencies
-      run: npm install
+      - name: Install Dependencies
+        run: npm install
 
-    - name: Install WDIO + Appium
-      run: |
-        npm install @wdio/cli @wdio/local-runner @wdio/mocha-framework @wdio/appium-service
-        npm install appium
+      - name: Install WDIO + Appium
+        run: |
+          npm install @wdio/cli @wdio/local-runner @wdio/mocha-framework @wdio/appium-service
+          npm install appium
 
-    - name: Install Appium Drivers
-      run: npx appium driver install xcuitest
+      - name: Install Appium Drivers
+        run: npx appium driver install xcuitest
 
-    - name: Show Xcode & Simulators
-      run: |
-        sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
-        xcodebuild -version
-        xcrun simctl list
+      - name: Show Xcode & Simulators
+        run: |
+          sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
+          xcodebuild -version
+          xcrun simctl list
 
-    - name: Boot iOS Simulator
-      run: |
-        xcrun simctl shutdown all || true
-        xcrun simctl boot "iPhone 15"
-        xcrun simctl bootstatus "iPhone 15"
+      - name: Boot iOS Simulator
+        run: |
+          xcrun simctl shutdown all || true
+          xcrun simctl boot "iPhone 15"
+          xcrun simctl bootstatus "iPhone 15"
 
-        # IMPORTANT: No manual "Start Appium Server" step here
-        # We rely on WDIO's built-in service
+          # IMPORTANT: No manual "Start Appium Server" step here
+          # We rely on WDIO's built-in service
 
-    - name: Run WebdriverIO Tests
-      run: npx wdio run wdio.conf.js --logLevel debug
+      - name: Run WebdriverIO Tests
+        run: npx wdio run wdio.conf.js --logLevel debug
 
-    - name: Install Allure CLI (Direct Download from GitHub Release)
-      run: |
-        ALLURE_VERSION=2.23.0
-        curl -LO https://github.com/allure-framework/allure2/releases/download/${ALLURE_VERSION}/allure-${ALLURE_VERSION}.zip
+      # ---- Install Allure CLI as Dev Dependency ----
+      - name: Install Allure CLI as Dev Dependency
+        run: npm install --save-dev allure-commandline
 
-        # Unzip into a folder named "allure-cli"
-        unzip allure-${ALLURE_VERSION}.zip -d allure-cli
+      - name: Verify Allure Installation
+        run: npx allure --version
 
-        # Move it to /usr/local/allure
-        sudo mv allure-cli /usr/local/allure
+      # ---- Generate Allure Report ----
+      - name: Generate Allure Report
+        run: |
+          npx allure generate allure-results --clean -o allure-report
 
-        # Add the Allure bin path to $GITHUB_PATH for subsequent steps
-        echo "/usr/local/allure/allure/bin" >> $GITHUB_PATH
+      # ---- Upload Allure Report ----
+      - name: Upload Allure HTML
+        uses: actions/upload-artifact@v3
+        with:
+          name: allure-report
+          path: allure-report
 
-        # Clean up
-        rm allure-${ALLURE_VERSION}.zip
+      # ---- Archive Other Artifacts ----
+      - name: Archive Artifacts and Upload
+        if: always()
+        run: |
+          mkdir -p artifacts
+          # Copy appium.log if it exists
+          [ -f ./appium.log ] && cp ./appium.log ./artifacts || echo "No Appium log found."
+          # Copy the screenshots folder if it exists
+          [ -d ./screenshots ] && cp -r ./screenshots ./artifacts || echo "No screenshots directory found."
+          # Create a zip
+          zip -r artifacts.zip artifacts
 
-    - name: Verify Allure Installation
-      run: allure --version
-
-    - name: Generate Allure Report
-      run: |
-        allure generate allure-results --clean -o allure-report
-
-    - name: Upload Allure HTML
-      uses: actions/upload-artifact@v3
-      with:
-        name: allure-report
-        path: allure-report
-
-    - name: Archive Artifacts and Upload
-      if: always()
-      run: |
-        mkdir -p artifacts
-        # Copy appium.log if it exists
-        [ -f ./appium.log ] && cp ./appium.log ./artifacts || echo "No Appium log found."
-        # Copy the screenshots folder if it exists
-        [ -d ./screenshots ] && cp -r ./screenshots ./artifacts || echo "No screenshots directory found."
-        # Create a zip
-        zip -r artifacts.zip artifacts
-
-    - name: Upload Artifacts
-      if: always()
-      uses: actions/upload-artifact@v3
-      with:
-        name: test-artifacts
-        path: artifacts.zip
+      - name: Upload Artifacts
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-artifacts
+          path: artifacts.zip
