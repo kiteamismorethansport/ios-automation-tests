@@ -46,23 +46,29 @@ jobs:
       - name: Run WebdriverIO Tests
         run: npx wdio run wdio.conf.js --logLevel debug
 
-      # ---- Install Allure CLI (Direct Download from GitHub Release) ----
+      # ---- Install Allure CLI ----
       - name: Install Allure CLI (Direct Download from GitHub Release)
         run: |
+          # Define the Allure version
           ALLURE_VERSION=2.23.0
-          curl -LO https://github.com/allure-framework/allure2/releases/download/${ALLURE_VERSION}/allure-${ALLURE_VERSION}.tar.gz
 
-          # Extract the tar.gz
-          tar -xzf allure-${ALLURE_VERSION}.tar.gz
+          # Download the correct Allure CLI tarball
+          curl -LO https://github.com/allure-framework/allure2/releases/download/${ALLURE_VERSION}/allure-${ALLURE_VERSION}.tgz
 
-          # Move it to /opt/allure
+          # Extract the tarball
+          tar -xzf allure-${ALLURE_VERSION}.tgz
+
+          # Move the extracted Allure directory to /opt/allure
           sudo mv allure-${ALLURE_VERSION} /opt/allure
 
-          # Add the Allure bin path to $GITHUB_PATH for subsequent steps
+          # Ensure the Allure binary has execute permissions
+          sudo chmod +x /opt/allure/bin/allure
+
+          # Add Allure's bin directory to the PATH for subsequent steps
           echo "/opt/allure/bin" >> $GITHUB_PATH
 
-          # Clean up the downloaded tar.gz
-          rm allure-${ALLURE_VERSION}.tar.gz
+          # Clean up the downloaded tarball to save space
+          rm allure-${ALLURE_VERSION}.tgz
 
       - name: Verify Allure Installation
         run: allure --version
