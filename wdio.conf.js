@@ -33,8 +33,8 @@ export const config = {
     capabilities: [
       {
         platformName: 'iOS',
-        'appium:platformVersion': '17.5',
-        'appium:deviceName': 'iPhone 15',
+        'appium:platformVersion': '18.1',
+        'appium:deviceName': 'iPad Pro (11-inch) (3rd generation)',
         'appium:automationName': 'XCUITest',
         'appium:app': './apps/MyRNDemoApp.app',
   
