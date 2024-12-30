@@ -37,8 +37,8 @@ jobs:
       - name: Boot iOS Simulator
         run: |
           xcrun simctl shutdown all || true
-          xcrun simctl boot "55AC4BC1-FCCB-4CC4-B813-C1C82C46506D"
-          xcrun simctl bootstatus "55AC4BC1-FCCB-4CC4-B813-C1C82C46506D"
+          xcrun simctl boot "iPhone 15"
+          xcrun simctl bootstatus "iPhone 15"
 
           # IMPORTANT: No manual "Start Appium Server" step here
           # We rely on WDIO's built-in service
