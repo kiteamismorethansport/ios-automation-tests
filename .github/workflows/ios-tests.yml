@@ -37,8 +37,8 @@ jobs:
       - name: Boot iOS Simulator
         run: |
           xcrun simctl shutdown all || true
-          xcrun simctl boot "iPad Pro (10.5-inch)"
-          xcrun simctl bootstatus "iPad Pro (10.5-inch)"
+          xcrun simctl boot "8DBD4EDF-9330-4717-AC9A-AA61484AFC28"
+          xcrun simctl bootstatus "8DBD4EDF-9330-4717-AC9A-AA61484AFC28"
 
           # IMPORTANT: No manual "Start Appium Server" step here
           # We rely on WDIO's built-in service

@@ -34,7 +34,7 @@ export const config = {
       {
         platformName: 'iOS',
         'appium:platformVersion': '17.5',
-        'appium:deviceName': 'iPad Pro (10.5-inch)',
+        'appium:deviceName': '8DBD4EDF-9330-4717-AC9A-AA61484AFC28',
         'appium:automationName': 'XCUITest',
         'appium:app': './apps/MyRNDemoApp.app',
   
