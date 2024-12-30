@@ -37,8 +37,8 @@ jobs:
       - name: Boot iOS Simulator
         run: |
           xcrun simctl shutdown all || true
-          xcrun simctl boot "iPad Pro (12.9-inch) (3rd generation)"
-          xcrun simctl bootstatus "iPad Pro (12.9-inch) (3rd generation)"
+          xcrun simctl boot "iPad (9th generation)"
+          xcrun simctl bootstatus "iPad (9th generation)"
 
           # IMPORTANT: No manual "Start Appium Server" step here
           # We rely on WDIO's built-in service
