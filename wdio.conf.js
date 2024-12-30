@@ -34,7 +34,7 @@ export const config = {
       {
         platformName: 'iOS',
         'appium:platformVersion': '18.1',
-        'appium:deviceName': 'iPad (9th generation)',
+        'appium:deviceName': '55AC4BC1-FCCB-4CC4-B813-C1C82C46506D',
         'appium:automationName': 'XCUITest',
         'appium:app': './apps/MyRNDemoApp.app',
   
