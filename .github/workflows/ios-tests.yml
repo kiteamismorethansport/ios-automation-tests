@@ -34,15 +34,7 @@ jobs:
           xcodebuild -version
           xcrun simctl list
 
-      - name: Boot iOS Simulator
-        run: |
-          xcrun simctl shutdown all || true
-          xcrun simctl boot "iPad Pro (11-inch) (4th generation)"
-          xcrun simctl bootstatus "iPad Pro (11-inch) (4th generation)"
-
-          # IMPORTANT: No manual "Start Appium Server" step here
-          # We rely on WDIO's built-in service
-
+      
       - name: Run WebdriverIO Tests
         run: npx wdio run wdio.conf.js --logLevel debug
 
