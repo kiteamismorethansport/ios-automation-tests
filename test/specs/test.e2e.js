@@ -2,8 +2,8 @@ import fs from 'fs';
 import { expect } from '@wdio/globals';
 import LoginPage from '../pageobjects/login.page.js';
 
-describe('My Login application', () => {
-    it('should login with valid credentials', async () => {
+describe('My Demo application', () => {
+    it('Button should be displayed', async () => {
         // Define the screenshots folder path in the root directory
         const screenshotsDir = `${process.cwd()}/screenshots`;
 
@@ -12,16 +12,16 @@ describe('My Login application', () => {
             fs.mkdirSync(screenshotsDir, { recursive: true }); // Ensure directory exists
         }
 
-        console.log('Saving screenshot before click');
-        // Save a screenshot before the click action.
+        console.log('Saving screenshot before test');
+        // Save a screenshot before
         await browser.saveScreenshot(`${screenshotsDir}/before-click.png`);
 
-        console.log('Performing click action');
-        // Perform the click action
-        await LoginPage.click();
+        console.log('Checking if it is displayed');
+        // Perform the action
+        await LoginPage.isDisplayed();
 
-        console.log('Saving screenshot after click');
-        // Save a screenshot after the click action.
+        console.log('Saving screenshot after test');
+        // Save a screenshot after
         await browser.saveScreenshot(`${screenshotsDir}/after-click.png`);
     });
 });

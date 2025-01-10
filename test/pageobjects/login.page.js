@@ -13,7 +13,7 @@ class LoginPage {
     }
 
     
-    async click () {
+    async isDisplayed () {
         await expect(this.appButton).toBeDisplayed();
         
     }
