@@ -27,7 +27,7 @@ export const config = {
           }
         ]
       ],
-    connectionRetryTimeout: 600000,
+    connectionRetryTimeout: 900000,
     connectionRetryCount: 3,
   
     capabilities: [
@@ -45,7 +45,7 @@ export const config = {
         // Give WebDriverAgent extra time
         'appium:wdaStartupRetries': 4,
         'appium:wdaStartupRetryInterval': 30000,
-        'appium:newCommandTimeout': 300,
+        'appium:newCommandTimeout': 600,
       },
     ],
   };
