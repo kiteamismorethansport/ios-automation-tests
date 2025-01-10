@@ -18,7 +18,7 @@ describe('My Demo application', () => {
 
         console.log('Checking if it is displayed');
         // Perform the action
-        await LoginPage.isDisplayed();
+        await LoginPage.isPresent();
 
         console.log('Saving screenshot after test');
         // Save a screenshot after
